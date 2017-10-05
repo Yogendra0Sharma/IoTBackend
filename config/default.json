@@ -1,0 +1,21 @@
+{ 
+  "server": {
+    "port": 3000
+  },
+  "logger": {
+    "file": {
+        "path": "./pocket-market-api.log",
+        "level": "verbose"
+    },
+    "console": {
+        "level": "verbose"
+    }
+  },
+  "db": {
+    "host": "localhost"
+  },
+  "jwt": {
+    "header": "IOTB-Authorization",
+    "secret": "iotbackend-secret-17"
+  }
+}

@@ -1,3 +1,9 @@
+# App
+public/
+
+# Typescript
+.tscache/
+
 # Logs
 logs
 *.log
