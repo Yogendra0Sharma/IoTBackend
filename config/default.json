@@ -4,7 +4,7 @@
   },
   "logger": {
     "file": {
-        "path": "./pocket-market-api.log",
+        "path": "./iotbackend.log",
         "level": "verbose"
     },
     "console": {
