@@ -9,6 +9,7 @@ import logger from '../logger'
 import { encode } from '../utils/crypto'
 import jwt from '../jwt'
 import User from '../model/user'
+import Thing from '../model/thing'
 
 export default server => {
 
@@ -19,9 +20,9 @@ export default server => {
 
   server.post('/users', jwt.authenticate(), (req, res) => {
     const username = req.body.username
-    const password = req.body.password 
+    const password = req.body.password
 
-    if (!username || !password) 
+    if (!username || !password)
       res.status(400).json({ message: `Required username=${username} and password=${password}` })
     else {
       const newUser = {
@@ -31,8 +32,8 @@ export default server => {
       }
       logger.info(`Creating User=${JSON.stringify(newUser)}`)
       User.create(newUser)
-      .then((user: User) => res.json(user))
-      .catch(error => res.status(400).json(error))
+        .then((user: User) => res.json(user))
+        .catch(error => res.status(400).json(error))
     }
   })
 
@@ -42,7 +43,7 @@ export default server => {
 
     logger.info(`POST /auth username=${username} password=${password}`)
 
-    if (!username || !password) 
+    if (!username || !password)
       res.status(400).json({ message: `Required username=${username} and password=${password}` })
     else {
       User.findOne({ username: username }, (err, user: User) => {
@@ -66,5 +67,40 @@ export default server => {
     res.status(200).json({ message: 'Secret Area', user: req.user })
   })
 
-  return server; 
+  //Add Thing
+  server.post('/addThing', (req, res) => {
+    const Name = req.body.thingName
+    const Description = req.body.thingDescription
+    console.log(req.body)
+    if (!Name || !Description) {
+      res.status(400).json({ message: 'thingName and thingDescription needed' })
+    } else {
+      let newThing = {
+        thingId: uuid(),
+        thingName: Thing,
+        thingDescription: Description
+      }
+      Thing.create(newThing);
+      res.status(200).json({ message: 'Thing added' })
+    }
+  });
+
+  //get Thing
+  server.get('/getThings', (req, res) => {
+    /*User.find({}, (err, things: Thing) => {
+      res.status(200).json(things)
+    });*/
+    //TODO
+  });
+
+  //update Thing
+  server.put('/updateThing', (req, res) => {
+    //TODO
+  });
+
+  //Delete Thing
+  server.delete('/deleteThing', (req, res) => {
+    //TODO
+  });
+  return server;
 }
